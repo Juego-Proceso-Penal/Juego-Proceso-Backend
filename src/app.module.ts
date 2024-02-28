@@ -3,9 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { User } from './users/entities/user.entity';
+import { UserScore } from './users/entities/user-score.entity';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([User, UserScore]),
     ConfigModule.forRoot({
       isGlobal: true,
     }),

@@ -2,8 +2,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { UserScore } from './user-score.entity';
 
 @Entity()
 export class User {
@@ -33,4 +35,7 @@ export class User {
 
   @CreateDateColumn()
   registrationDate: Date;
+
+  @OneToMany(() => UserScore, (score) => score.user)
+  scores: UserScore[];
 }
