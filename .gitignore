@@ -3,6 +3,10 @@
 /node_modules
 mysql
 
+#Envs
+.env
+.env.development
+
 # Logs
 logs
 *.log
