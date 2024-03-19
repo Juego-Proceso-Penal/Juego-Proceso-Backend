@@ -21,7 +21,7 @@ export class RegisterDto {
 
   @IsString()
   @MinLength(1)
-  country: string;
+  country?: string;
 
   @IsString()
   @MinLength(1)
