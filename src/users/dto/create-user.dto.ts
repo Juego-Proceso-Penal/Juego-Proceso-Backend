@@ -1,3 +1,7 @@
+interface Level {
+  levelName: string;
+  levelScore: string;
+}
 export class CreateUserDto {
   country: string;
   email: string;
@@ -6,4 +10,5 @@ export class CreateUserDto {
   nickName: string;
   currentLevel: string;
   accountType: string;
+  userLevels?: Level[];
 }

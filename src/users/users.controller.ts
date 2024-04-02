@@ -60,4 +60,19 @@ export class UsersController {
     );
     return updatedUser;
   }
+
+  @Patch(':userId/update-user-level-score/:levelName')
+  async updateUserLevelScore(
+    @Param('userId') userId: number,
+    @Param('levelName') levelName: string,
+    @Body() body: { newLevelScore: string },
+  ) {
+    const { newLevelScore } = body;
+    const updatedUser = await this.usersService.updateUserLevelScore(
+      userId,
+      levelName,
+      newLevelScore,
+    );
+    return updatedUser;
+  }
 }

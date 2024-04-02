@@ -2,8 +2,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Level } from './level.entity';
 
 @Entity()
 export class User {
@@ -30,6 +32,9 @@ export class User {
 
   @Column({ nullable: false, select: false })
   accountType: string;
+
+  @OneToMany(() => Level, (level) => level.user)
+  userLevels: Level[];
 
   @CreateDateColumn()
   registrationDate: Date;

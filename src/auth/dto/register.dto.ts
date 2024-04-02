@@ -1,5 +1,22 @@
-import { Transform } from 'class-transformer';
-import { IsEmail, IsString, MinLength } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import {
+  ArrayMinSize,
+  IsArray,
+  IsEmail,
+  IsString,
+  MinLength,
+  ValidateNested,
+} from 'class-validator';
+import { LevelDto } from './level.dto';
+class Level {
+  levelName: string;
+  levelScore: string;
+
+  constructor(levelName: string, levelScore: string) {
+    this.levelName = levelName;
+    this.levelScore = levelScore;
+  }
+}
 
 export class RegisterDto {
   @Transform(({ value }) => value.trim())
@@ -30,4 +47,10 @@ export class RegisterDto {
   @IsString()
   @MinLength(1)
   accountType: string;
+
+  @IsArray()
+  @ArrayMinSize(1)
+  @ValidateNested({ each: true })
+  @Type(() => LevelDto)
+  userLevels: LevelDto[];
 }
