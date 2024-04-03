@@ -15,17 +15,23 @@ import { UserScore } from './users/entities/user-score.entity';
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: parseInt(process.env.PORT),
-      username: process.env.POSTGRES_USERNAME,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DATABASE,
+      host: 'dpg-cnd6a9acn0vc73f5dk2g-a.oregon-postgres.render.com',
+      port: 5432,
+      username: 'proceso',
+      password: 'Nxd7nJEnEyQ7jCnqIgGEi6oEefDGmboA',
+      database: 'juego_proceso',
+      // JWT_SECRET="no utilizar esta palabra en producción"
+      // host: process.env.POSTGRES_HOST,
+      // port: parseInt(process.env.PORT),
+      // username: process.env.POSTGRES_USERNAME,
+      // password: process.env.POSTGRES_PASSWORD,
+      // database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
       synchronize: true,
-      ssl: process.env.POSTGRES_SSL === 'true',
+      ssl: 'true' === 'true',
       extra: {
         ssl:
-          process.env.POSTGRES_SSL === 'true'
+          'true' === 'true'
             ? {
                 rejectUnauthorized: false,
               }

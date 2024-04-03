@@ -25,6 +25,7 @@ export class AuthService {
     country,
     currentLevel,
     accountType,
+    userLevels,
   }: RegisterDto) {
     const user = await this.usersService.findOneByEmail(email);
 
@@ -45,6 +46,7 @@ export class AuthService {
       nickName,
       currentLevel,
       accountType,
+      userLevels,
     });
 
     return {
