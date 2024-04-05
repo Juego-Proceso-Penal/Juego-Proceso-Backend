@@ -52,7 +52,10 @@ export class UsersService {
   }
 
   findAll() {
-    return this.userRepository.find({ relations: ['userLevels'] });
+    return this.userRepository.find({
+      select: ['userId', 'email', 'nickName', 'accountType', 'currentLevel'],
+      relations: ['userLevels'],
+    });
   }
 
   findOneById(userId: number) {
@@ -61,7 +64,6 @@ export class UsersService {
       select: [
         'userId',
         'email',
-        'password',
         'fullName',
         'nickName',
         'accountType',
