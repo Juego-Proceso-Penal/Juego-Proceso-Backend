@@ -73,8 +73,63 @@ export class UsersService {
     });
   }
 
-  update(userId: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${userId} user`;
+  async update(userId: number, updateUserDto: UpdateUserDto): Promise<User> {
+    try {
+      // Buscar el usuario por su ID
+      let user = await this.findOneById(userId);
+
+      if (!user) {
+        throw new NotFoundException(`User with ID ${userId} not found`);
+      }
+
+      // Actualizar los campos del usuario con los datos proporcionados en updateUserDto
+      if (updateUserDto.email !== undefined) {
+        user.email = updateUserDto.email;
+      }
+      if (updateUserDto.fullName !== undefined) {
+        user.fullName = updateUserDto.fullName;
+      }
+      if (updateUserDto.nickName !== undefined) {
+        user.nickName = updateUserDto.nickName;
+      }
+      if (updateUserDto.currentLevel !== undefined) {
+        user.currentLevel = updateUserDto.currentLevel;
+      }
+      if (updateUserDto.userLevels !== undefined) {
+        // Actualizar los niveles del usuario si se proporcionan en updateUserDto
+        user.userLevels = await Promise.all(
+          updateUserDto.userLevels.map(async (levelData) => {
+            // Buscar el nivel correspondiente en los niveles del usuario
+            let level = user.userLevels.find(
+              (l) => l.levelName === levelData.levelName,
+            );
+
+            if (!level) {
+              // Si el nivel no existe, crearlo
+              level = this.levelRepository.create(levelData);
+              user.userLevels.push(level);
+            }
+
+            // Actualizar el levelScore del nivel
+            level.levelScore = levelData.levelScore;
+
+            // Guardar los cambios en la base de datos
+            await this.levelRepository.save(level);
+
+            return level;
+          }),
+        );
+      }
+
+      // Guardar los cambios en el usuario
+      user = await this.userRepository.save(user);
+
+      // Retornar el usuario actualizado
+      return user;
+    } catch (error) {
+      // Si se produce un error, manejarlo
+      throw error;
+    }
   }
 
   async updateCurrentLevel(userId: number, newLevel: string): Promise<User> {
