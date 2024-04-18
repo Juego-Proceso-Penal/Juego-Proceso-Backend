@@ -72,6 +72,7 @@ export class AuthService {
     return {
       fullName,
       email,
+      userId: user.userId,
     };
   }
 
