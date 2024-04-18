@@ -133,7 +133,16 @@ export class UsersService {
     return user;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(userId: number): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: { userId },
+      relations: ['userLevels'],
+    });
+
+    if (!user) {
+      throw new Error(`User with ID ${userId} not found`);
+    }
+    console.log('Usuario eliminado exitosamente');
+    return await this.userRepository.remove(user);
   }
 }
