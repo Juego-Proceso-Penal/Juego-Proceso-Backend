@@ -48,9 +48,9 @@ export class RegisterDto {
   @MinLength(1)
   accountType: string;
 
-  @IsArray()
-  @ArrayMinSize(1)
-  // @ValidateNested({ each: true })
-  @Type(() => LevelDto)
-  userLevels: LevelDto[];
+  // @IsArray()
+  // @ArrayMinSize(1)
+  // // @ValidateNested({ each: true })
+  // @Type(() => LevelDto)
+  // userLevels: LevelDto[];
 }

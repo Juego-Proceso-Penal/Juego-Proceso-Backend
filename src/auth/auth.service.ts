@@ -25,7 +25,6 @@ export class AuthService {
     country,
     currentLevel,
     accountType,
-    userLevels,
   }: RegisterDto) {
     const user = await this.usersService.findOneByEmail(email);
 
@@ -37,7 +36,28 @@ export class AuthService {
     if (currentLevel === null || currentLevel === undefined) {
       throw new BadRequestException('currentLevel cannot be null or undefined');
     }
-
+    const userLevelsArray = [
+      {
+        levelName: '1',
+        levelScore: '0',
+      },
+      {
+        levelName: '2',
+        levelScore: '0',
+      },
+      {
+        levelName: '3',
+        levelScore: '0',
+      },
+      {
+        levelName: '4',
+        levelScore: '0',
+      },
+      {
+        levelName: '5',
+        levelScore: '0',
+      },
+    ];
     await this.usersService.create({
       country,
       email,
@@ -46,7 +66,7 @@ export class AuthService {
       nickName,
       currentLevel,
       accountType,
-      userLevels,
+      userLevels: userLevelsArray,
     });
 
     return {
