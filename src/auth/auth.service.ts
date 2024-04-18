@@ -37,11 +37,7 @@ export class AuthService {
     if (currentLevel === null || currentLevel === undefined) {
       throw new BadRequestException('currentLevel cannot be null or undefined');
     }
-    // Crear los niveles de usuario con puntuaciones inicializadas en 0
 
-    // for (let i = 1; i <= 5; i++) {
-    //   userLevels.push({ levelName: i.toString(), levelScore: '0' });
-    // }
     await this.usersService.create({
       country,
       email,
@@ -50,28 +46,7 @@ export class AuthService {
       nickName,
       currentLevel,
       accountType,
-      userLevels: [
-        {
-          levelName: '1',
-          levelScore: '0',
-        },
-        {
-          levelName: '2',
-          levelScore: '0',
-        },
-        {
-          levelName: '2',
-          levelScore: '0',
-        },
-        {
-          levelName: '4',
-          levelScore: '500',
-        },
-        {
-          levelName: '5',
-          levelScore: '2500',
-        },
-      ],
+      userLevels,
     });
 
     return {

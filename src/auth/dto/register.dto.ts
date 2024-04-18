@@ -52,5 +52,5 @@ export class RegisterDto {
   @ArrayMinSize(1)
   @ValidateNested({ each: true })
   @Type(() => LevelDto)
-  userLevels?: LevelDto[];
+  userLevels: LevelDto[];
 }
