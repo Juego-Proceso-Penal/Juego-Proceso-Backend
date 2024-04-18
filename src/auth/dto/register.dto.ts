@@ -50,7 +50,7 @@ export class RegisterDto {
 
   @IsArray()
   @ArrayMinSize(1)
-  @ValidateNested({ each: true })
+  // @ValidateNested({ each: true })
   @Type(() => LevelDto)
   userLevels: LevelDto[];
 }
