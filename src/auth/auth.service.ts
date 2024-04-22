@@ -26,9 +26,9 @@ export class AuthService {
     currentLevel,
     accountType,
   }: RegisterDto) {
-    const user = await this.usersService.findOneByEmail(email);
+    const existingUser = await this.usersService.findOneByEmail(email);
 
-    if (user) {
+    if (existingUser) {
       throw new BadRequestException('User already exists');
     }
 
@@ -36,6 +36,7 @@ export class AuthService {
     if (currentLevel === null || currentLevel === undefined) {
       throw new BadRequestException('currentLevel cannot be null or undefined');
     }
+
     const userLevelsArray = [
       {
         levelName: '1',
@@ -58,10 +59,13 @@ export class AuthService {
         levelScore: '0',
       },
     ];
-    await this.usersService.create({
+
+    const hashedPassword = await bcryptjs.hash(password, 10);
+
+    const user = await this.usersService.create({
       country,
       email,
-      password: await bcryptjs.hash(password, 10),
+      password: hashedPassword,
       fullName,
       nickName,
       currentLevel,
@@ -72,7 +76,7 @@ export class AuthService {
     return {
       fullName,
       email,
-      userId: user.userId,
+      userId: user.userId, // Ahora accedemos a userId después de crear el usuario
     };
   }
 
