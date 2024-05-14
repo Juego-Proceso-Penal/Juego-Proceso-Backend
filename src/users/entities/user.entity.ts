@@ -27,13 +27,16 @@ export class User {
   @Column({ nullable: false, select: false })
   nickName: string;
 
+  @Column({ nullable: false, select: false, default: '' })
+  userIdentificationID: string;
+
   @Column({ nullable: false, select: false, default: '1' })
   currentLevel: string;
 
   @Column({ nullable: false, select: false })
   accountType: string;
 
-  @OneToMany(() => Level, (level) => level.user)
+  @OneToMany(() => Level, (level) => level.user, { cascade: true })
   userLevels: Level[];
 
   @CreateDateColumn()

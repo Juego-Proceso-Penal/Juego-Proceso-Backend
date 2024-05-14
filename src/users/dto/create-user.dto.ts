@@ -10,5 +10,6 @@ export class CreateUserDto {
   nickName: string;
   currentLevel: string;
   accountType: string;
+  userIdentificationID: string;
   userLevels?: Level[];
 }
