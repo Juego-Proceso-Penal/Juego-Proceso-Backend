@@ -12,11 +12,11 @@ import { ConfigModule } from '@nestjs/config';
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'dpg-cnd6a9acn0vc73f5dk2g-a.oregon-postgres.render.com',
+      host: 'dpg-cq11touehbks73ekt8r0-a.oregon-postgres.render.com',
       port: 5432,
-      username: 'proceso',
-      password: 'Nxd7nJEnEyQ7jCnqIgGEi6oEefDGmboA',
-      database: 'juego_proceso',
+      username: 'juego_proceso',
+      password: 'bv8WrFVEZJyZZT1Cm0vfiABSD9Ocw1ZM',
+      database: 'juego_proceso_o2nt',
       // JWT_SECRET="no utilizar esta palabra en producción"
       // host: process.env.POSTGRES_HOST,
       // port: parseInt(process.env.PORT),
