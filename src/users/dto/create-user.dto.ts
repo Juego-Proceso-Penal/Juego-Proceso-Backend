@@ -3,13 +3,13 @@ interface Level {
   levelScore: string;
 }
 export class CreateUserDto {
-  country: string;
+  country?: string;
   email: string;
   password: string;
   fullName: string;
   nickName: string;
   currentLevel: string;
   accountType: string;
-  userIdentificationID: string;
+  userIdentificationID?: string;
   userLevels?: Level[];
 }

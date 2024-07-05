@@ -12,7 +12,7 @@ export class User {
   @PrimaryGeneratedColumn()
   userId: number;
 
-  @Column()
+  @Column({ nullable: true, select: false, default: '' })
   country: string;
 
   @Column({ unique: true, nullable: false })
@@ -27,7 +27,7 @@ export class User {
   @Column({ nullable: false, select: false })
   nickName: string;
 
-  @Column({ nullable: false, select: false, default: '' })
+  @Column({ nullable: true, select: false, default: '' })
   userIdentificationID: string;
 
   @Column({ nullable: false, select: false, default: '1' })

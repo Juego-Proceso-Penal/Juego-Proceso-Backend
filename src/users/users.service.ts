@@ -53,7 +53,14 @@ export class UsersService {
 
   findAll() {
     return this.userRepository.find({
-      select: ['userId', 'email', 'nickName', 'accountType', 'currentLevel'],
+      select: [
+        'userId',
+        'email',
+        'fullName',
+        'nickName',
+        'accountType',
+        'currentLevel',
+      ],
       relations: ['userLevels'],
     });
   }
@@ -73,8 +80,44 @@ export class UsersService {
     });
   }
 
-  update(userId: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${userId} user`;
+  async update(userId: number, updateUserDto: UpdateUserDto): Promise<User> {
+    try {
+      const user = await this.userRepository.findOneOrFail({
+        where: { userId },
+        select: ['email', 'fullName', 'country', 'nickName', 'accountType'],
+      });
+
+      if (!user) {
+        throw new NotFoundException(`User with ID ${userId} not found`);
+      }
+
+      // Verifica y actualiza las propiedades del usuario
+      if (updateUserDto.email !== undefined) {
+        user.email = updateUserDto.email;
+      }
+      if (updateUserDto.country !== undefined) {
+        user.country = updateUserDto.country;
+      }
+      if (updateUserDto.fullName !== undefined) {
+        user.fullName = updateUserDto.fullName;
+      }
+      if (updateUserDto.nickName !== undefined) {
+        user.nickName = updateUserDto.nickName;
+      }
+      if (updateUserDto.accountType !== undefined) {
+        user.accountType = updateUserDto.accountType;
+      }
+
+      // Guarda los cambios en la base de datos
+      return await this.userRepository.save(user);
+    } catch (error) {
+      if (error instanceof EntityNotFoundError) {
+        // Si el usuario no se encuentra, lanza una excepción NotFoundException
+        throw new NotFoundException(`User with ID ${userId} not found`);
+      }
+      // Si se produce otro tipo de error, relanza el error original
+      throw error;
+    }
   }
 
   async updateCurrentLevel(userId: number, newLevel: string): Promise<User> {
@@ -87,14 +130,11 @@ export class UsersService {
       // Actualiza el nivel actual del usuario
       user.currentLevel = newLevel;
 
-      // Guarda los cambios en la base de datos
       return await this.userRepository.save(user);
     } catch (error) {
       if (error instanceof EntityNotFoundError) {
-        // Si el usuario no se encuentra, lanzar una excepción NotFoundException
         throw new NotFoundException(`User with ID ${userId} not found`);
       }
-      // Si se produce otro tipo de error, relanzar el error original
       throw error;
     }
   }
@@ -104,13 +144,11 @@ export class UsersService {
     levelName: string,
     newLevelScore: string,
   ): Promise<User> {
-    // Buscar el usuario por su ID
     const user = await this.userRepository.findOne({
       where: { userId },
       relations: ['userLevels'],
     });
 
-    // Si el usuario no se encuentra, lanzar una excepción NotFoundException
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
@@ -144,6 +182,17 @@ export class UsersService {
     if (!user) {
       throw new Error(`User with ID ${userId} not found`);
     }
+
+    // Eliminar manualmente los registros relacionados en la tabla "level"
+    await Promise.all(
+      user.userLevels.map(async (level: Level) => {
+        await this.levelRepository.remove(level);
+      }),
+    );
+
+    console.log('Registros relacionados en la tabla "level" eliminados');
+
+    // Eliminar el usuario
     console.log('Usuario eliminado exitosamente');
     return await this.userRepository.remove(user);
   }
