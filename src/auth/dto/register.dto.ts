@@ -38,7 +38,4 @@ export class RegisterDto {
   @IsString()
   @MinLength(1)
   accountType: string;
-
-  @IsString()
-  userIdentificationID: string;
 }

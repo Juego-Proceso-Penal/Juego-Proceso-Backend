@@ -24,7 +24,6 @@ export class AuthService {
     password,
     country,
     currentLevel,
-    userIdentificationID,
     accountType,
   }: RegisterDto) {
     const existingUser = await this.usersService.findOneByEmail(email);
@@ -71,7 +70,6 @@ export class AuthService {
       nickName,
       currentLevel,
       accountType,
-      userIdentificationID,
       userLevels: userLevelsArray,
     });
 

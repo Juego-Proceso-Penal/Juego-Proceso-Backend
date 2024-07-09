@@ -27,9 +27,6 @@ export class User {
   @Column({ nullable: false, select: false })
   nickName: string;
 
-  @Column({ nullable: true, select: false, default: '' })
-  userIdentificationID: string;
-
   @Column({ nullable: false, select: false, default: '1' })
   currentLevel: string;
 
