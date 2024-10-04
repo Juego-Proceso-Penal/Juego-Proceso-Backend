@@ -12,11 +12,17 @@ import { ConfigModule } from '@nestjs/config';
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'dpg-cq11touehbks73ekt8r0-a.oregon-postgres.render.com',
+      host: '54.86.192.86',
       port: 5432,
-      username: 'juego_proceso',
-      password: 'bv8WrFVEZJyZZT1Cm0vfiABSD9Ocw1ZM',
-      database: 'juego_proceso_o2nt',
+      username: 'elprocesoenj_elprocesoenj',
+      password: 'elprocesoenj_elprocesoenj',
+      database: 'juego_proceso_db',
+      // host: 'dpg-cnd6a9acn0vc73f5dk2g-a.oregon-postgres.render.com',
+      // host: 'dpg-cri9kkt2ng1s73dj1iv0-a.oregon-postgres.render.com',
+      // port: 5432,
+      // username: 'juego_proceso',
+      // password: 'GbDbYwzNXNt4Hg162qyt1BQgn6cgPLm2',
+      // database: 'juego_proceso_p2sd',
       // JWT_SECRET="no utilizar esta palabra en producción"
       // host: process.env.POSTGRES_HOST,
       // port: parseInt(process.env.PORT),
@@ -25,15 +31,15 @@ import { ConfigModule } from '@nestjs/config';
       // database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
       synchronize: true,
-      ssl: 'true' === 'true',
-      extra: {
-        ssl:
-          'true' === 'true'
-            ? {
-                rejectUnauthorized: false,
-              }
-            : null,
-      },
+      ssl: false,
+      // extra: {
+      //   ssl:
+      //     'true' === 'true'
+      //       ? {
+      //           rejectUnauthorized: false,
+      //         }
+      //       : null,
+      // },
     }),
     UsersModule,
     AuthModule,
