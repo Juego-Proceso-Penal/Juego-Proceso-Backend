@@ -30,15 +30,15 @@ import { ConfigModule } from '@nestjs/config';
       database: 'juego_proceso_db',
       autoLoadEntities: true,
       synchronize: true,
-      ssl: 'true' === 'true',
-      extra: {
-        ssl:
-          'true' === 'true'
-            ? {
-                rejectUnauthorized: false,
-              }
-            : null,
-      },
+      ssl: false,
+      // extra: {
+      //   ssl:
+      //     'true' === 'true'
+      //       ? {
+      //           rejectUnauthorized: false,
+      //         }
+      //       : null,
+      // },
     }),
     UsersModule,
     AuthModule,
