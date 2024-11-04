@@ -23,14 +23,22 @@ import { ConfigModule } from '@nestjs/config';
       // username: process.env.POSTGRES_USERNAME,
       // password: process.env.POSTGRES_PASSWORD,
       // database: process.env.POSTGRES_DATABASE,
-      host: 'elproceso.enj.org',
+      // TO USE LATER
+      // host: 'elproceso.enj.org',
+      // port: 5432,
+      // username: 'elprocesoenj_elprocesoenj',
+      // password: 'elprocesoenj_elprocesoenj',
+      // database: 'juego_proceso_db',
+
+      // TEMPORAL
+      host: 'dpg-csk26klds78s73962d0g-a.oregon-postgres.render.com',
       port: 5432,
-      username: 'elprocesoenj_elprocesoenj',
-      password: 'elprocesoenj_elprocesoenj',
-      database: 'juego_proceso_db',
+      username: 'juego_proceso_30m8_user',
+      password: 'rP2RS9XvnMZw9ymgcV5O80MCXyANTbkF',
+      database: 'juego_proceso_30m8',
       autoLoadEntities: true,
       synchronize: true,
-      ssl: false,
+      ssl: true,
       // extra: {
       //   ssl:
       //     'true' === 'true'
